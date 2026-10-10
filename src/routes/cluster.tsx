@@ -62,7 +62,7 @@ function ClusterPage() {
               {c.subjectIds.map((id) => {
                 const s = subjMap.get(id);
                 if (!s) return null;
-                const Icon = subjectIcons[s.icon] ?? subjectIcons.book;
+                const Icon = subjectIcons[s.icon] ?? DefaultIcon;
                 const n = counts.data?.[id] ?? 0;
                 return (
                   <Link key={id} to="/quiz" search={{ subject: s.slug, cluster: c.id }} className="group flex items-center gap-3 rounded-xl border bg-background p-3 transition-colors hover:border-primary">

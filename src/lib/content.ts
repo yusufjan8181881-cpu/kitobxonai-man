@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
+export const DefaultIcon = Book;
 export const subjectIcons: Record<string, LucideIcon> = {
   calculator: Calculator, atom: Atom, flask: FlaskConical, leaf: Leaf, globe: Globe,
   landmark: Landmark, scroll: Scroll, languages: Languages, feather: Feather, "book-a": BookA,
@@ -88,7 +89,7 @@ export function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    const t = a[i]!; a[i] = a[j]!; a[j] = t;
   }
   return a;
 }
