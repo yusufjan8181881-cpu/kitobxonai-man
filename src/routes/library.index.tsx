@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { subjectsQuery, subjectIcons, kindLabel } from "@/lib/content";
+import { subjectsQuery, subjectIcons, DefaultIcon, kindLabel } from "@/lib/content";
 
 export const Route = createFileRoute("/library/")({
   head: () => ({
@@ -70,7 +70,7 @@ function LibraryPage() {
       {subjects.isLoading && <p className="mt-8 text-muted-foreground">Бор шуда истодааст...</p>}
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {filteredSubjects.map((s) => {
-          const Icon = subjectIcons[s.icon] ?? subjectIcons.book;
+          const Icon = subjectIcons[s.icon] ?? DefaultIcon;
           return (
             <Link key={s.id} to="/library/$slug" params={{ slug: s.slug }} className="card-lift group rounded-2xl border bg-card p-4 shadow-card sm:p-5">
               <span className="flex size-10 items-center justify-center rounded-xl bg-secondary text-primary transition-colors group-hover:bg-gradient-primary group-hover:text-primary-foreground">
