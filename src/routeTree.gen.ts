@@ -10,15 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AiRouteImport } from './routes/ai'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ClusterRouteImport } from './routes/cluster'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as LibraryIndexRouteImport } from './routes/library.index'
 import { Route as LibrarySlugRouteImport } from './routes/library.$slug'
+import { Route as ReadIdRouteImport } from './routes/read.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiRoute = AiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClusterRoute = ClusterRouteImport.update({
@@ -36,6 +57,16 @@ const QuizRoute = QuizRouteImport.update({
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LibraryIndexRoute = LibraryIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -46,52 +77,109 @@ const LibrarySlugRoute = LibrarySlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => LibraryRoute,
 } as any)
+const ReadIdRoute = ReadIdRouteImport.update({
+  id: '/read/$id',
+  path: '/read/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/ai': typeof AiRoute
+  '/auth': typeof AuthRoute
   '/cluster': typeof ClusterRoute
   '/library': typeof LibraryRouteWithChildren
   '/quiz': typeof QuizRoute
+  '/saved': typeof SavedRoute
+  '/api/chat': typeof ApiChatRoute
   '/library/$slug': typeof LibrarySlugRoute
+  '/read/$id': typeof ReadIdRoute
   '/library/': typeof LibraryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/ai': typeof AiRoute
+  '/auth': typeof AuthRoute
   '/cluster': typeof ClusterRoute
   '/quiz': typeof QuizRoute
+  '/saved': typeof SavedRoute
+  '/api/chat': typeof ApiChatRoute
   '/library/$slug': typeof LibrarySlugRoute
+  '/read/$id': typeof ReadIdRoute
   '/library': typeof LibraryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/ai': typeof AiRoute
+  '/auth': typeof AuthRoute
   '/cluster': typeof ClusterRoute
   '/library': typeof LibraryRouteWithChildren
   '/quiz': typeof QuizRoute
+  '/saved': typeof SavedRoute
+  '/api/chat': typeof ApiChatRoute
   '/library/$slug': typeof LibrarySlugRoute
+  '/read/$id': typeof ReadIdRoute
   '/library/': typeof LibraryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/cluster' | '/library' | '/quiz' | '/library/$slug' | '/library/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cluster' | '/quiz' | '/library/$slug' | '/library'
-  id:
-    | '__root__'
     | '/'
+    | '/admin'
+    | '/ai'
+    | '/auth'
     | '/cluster'
     | '/library'
     | '/quiz'
+    | '/saved'
+    | '/api/chat'
     | '/library/$slug'
+    | '/read/$id'
+    | '/library/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/admin'
+    | '/ai'
+    | '/auth'
+    | '/cluster'
+    | '/quiz'
+    | '/saved'
+    | '/api/chat'
+    | '/library/$slug'
+    | '/read/$id'
+    | '/library'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/ai'
+    | '/auth'
+    | '/cluster'
+    | '/library'
+    | '/quiz'
+    | '/saved'
+    | '/api/chat'
+    | '/library/$slug'
+    | '/read/$id'
     | '/library/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  AiRoute: typeof AiRoute
+  AuthRoute: typeof AuthRoute
   ClusterRoute: typeof ClusterRoute
   LibraryRoute: typeof LibraryRouteWithChildren
   QuizRoute: typeof QuizRoute
+  SavedRoute: typeof SavedRoute
+  ApiChatRoute: typeof ApiChatRoute
+  ReadIdRoute: typeof ReadIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -101,6 +189,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai': {
+      id: '/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cluster': {
@@ -124,6 +233,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/library/': {
       id: '/library/'
       path: '/'
@@ -137,6 +260,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/library/$slug'
       preLoaderRoute: typeof LibrarySlugRouteImport
       parentRoute: typeof LibraryRoute
+    }
+    '/read/$id': {
+      id: '/read/$id'
+      path: '/read/$id'
+      fullPath: '/read/$id'
+      preLoaderRoute: typeof ReadIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -156,9 +286,15 @@ const LibraryRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  AiRoute: AiRoute,
+  AuthRoute: AuthRoute,
   ClusterRoute: ClusterRoute,
   LibraryRoute: LibraryRouteWithChildren,
   QuizRoute: QuizRoute,
+  SavedRoute: SavedRoute,
+  ApiChatRoute: ApiChatRoute,
+  ReadIdRoute: ReadIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
