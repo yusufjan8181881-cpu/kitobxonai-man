@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Search, ArrowRight, Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { clustersQuery, subjectsQuery, questionCountsQuery, subjectIcons } from "@/lib/content";
+import { clustersQuery, subjectsQuery, questionCountsQuery, subjectIcons, DefaultIcon } from "@/lib/content";
 
 export const Route = createFileRoute("/cluster")({
   head: () => ({

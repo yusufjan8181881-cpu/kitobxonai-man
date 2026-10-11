@@ -13,13 +13,13 @@ import {
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-type Search = { subject?: string; cluster?: number; difficulty?: string };
+type Search = { subject?: string | undefined; cluster?: number | undefined; difficulty?: string | undefined };
 
 export const Route = createFileRoute("/quiz")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    subject: typeof s.subject === "string" ? s.subject : undefined,
-    cluster: s.cluster != null && !isNaN(Number(s.cluster)) ? Number(s.cluster) : undefined,
-    difficulty: typeof s.difficulty === "string" && ["easy", "medium", "hard"].includes(s.difficulty) ? s.difficulty : undefined,
+    subject: typeof s["subject"] === "string" ? s["subject"] : undefined,
+    cluster: s["cluster"] != null && !isNaN(Number(s["cluster"])) ? Number(s["cluster"]) : undefined,
+    difficulty: typeof s["difficulty"] === "string" && ["easy", "medium", "hard"].includes(s["difficulty"]) ? s["difficulty"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -117,15 +117,15 @@ function QuizPage() {
 }
 
 function QuizRunner(props: {
-  subjectIds: string[]; difficulty?: string; count: number; clusterId?: number; subjectId?: string; onExit: () => void;
+  subjectIds: string[]; difficulty?: string | undefined; count: number; clusterId?: number | undefined; subjectId?: string | undefined; onExit: () => void;
 }) {
   const { user } = useAuth();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["quiz", props.subjectIds, props.difficulty, props.count],
+    queryKey: ["quiz", props["subject"]Ids, props["difficulty"], props.count],
     queryFn: async () => {
       let q = supabase.from("questions").select("*").eq("status", "approved").limit(500);
-      if (props.subjectIds.length) q = q.in("subject_id", props.subjectIds);
-      if (props.difficulty) q = q.eq("difficulty", props.difficulty);
+      if (props["subject"]Ids.length) q = q.in("subject_id", props["subject"]Ids);
+      if (props["difficulty"]) q = q.eq("difficulty", props["difficulty"]);
       const { data, error } = await q;
       if (error) throw error;
       return shuffle(data as unknown as Question[]).slice(0, props.count);
@@ -166,7 +166,7 @@ function QuizRunner(props: {
     if (user) {
       const r = scoreQuiz(questions, answers);
       const { error } = await supabase.from("quiz_attempts").insert({
-        user_id: user.id, subject_id: props.subjectId ?? null, cluster_id: props.clusterId ?? null,
+        user_id: user.id, subject_id: props["subject"]Id ?? null, cluster_id: props["cluster"]Id ?? null,
         total: r.total, correct: r.correct, duration_seconds: elapsed,
       });
       if (error) toast.error("Натиҷа сабт нашуд");
@@ -222,6 +222,7 @@ function QuizRunner(props: {
   }
 
   const q = questions[idx];
+  if (!q) return null;
   const chosen = answers[idx];
   const answeredCount = answers.filter((a) => a !== null).length;
 
