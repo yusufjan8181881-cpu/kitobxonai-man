@@ -121,11 +121,11 @@ function QuizRunner(props: {
 }) {
   const { user } = useAuth();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["quiz", props["subject"]Ids, props["difficulty"], props.count],
+    queryKey: ["quiz", props.subjectIds, props.difficulty, props.count],
     queryFn: async () => {
       let q = supabase.from("questions").select("*").eq("status", "approved").limit(500);
-      if (props["subject"]Ids.length) q = q.in("subject_id", props["subject"]Ids);
-      if (props["difficulty"]) q = q.eq("difficulty", props["difficulty"]);
+      if (props.subjectIds.length) q = q.in("subject_id", props.subjectIds);
+      if (props.difficulty) q = q.eq("difficulty", props.difficulty);
       const { data, error } = await q;
       if (error) throw error;
       return shuffle(data as unknown as Question[]).slice(0, props.count);
@@ -166,7 +166,7 @@ function QuizRunner(props: {
     if (user) {
       const r = scoreQuiz(questions, answers);
       const { error } = await supabase.from("quiz_attempts").insert({
-        user_id: user.id, subject_id: props["subject"]Id ?? null, cluster_id: props["cluster"]Id ?? null,
+        user_id: user.id, subject_id: props.subjectId ?? null, cluster_id: props.clusterId ?? null,
         total: r.total, correct: r.correct, duration_seconds: elapsed,
       });
       if (error) toast.error("Натиҷа сабт нашуд");
