@@ -43,14 +43,23 @@ function ReadPage() {
   });
 
   async function toggle() {
-    if (!user) return toast.info("Барои захира ворид шавед");
+    if (!user) {
+      toast.info("Барои захира ворид шавед");
+      return;
+    }
     if (bm.data) {
       const { error } = await supabase.from("bookmarks").delete().eq("id", bm.data.id);
-      if (error) return toast.error("Хатогӣ");
+      if (error) {
+        toast.error("Хатогӣ");
+        return;
+      }
       toast.success("Аз захираҳо хориҷ шуд");
     } else {
       const { error } = await supabase.from("bookmarks").insert({ user_id: user.id, resource_id: id });
-      if (error) return toast.error("Хатогӣ");
+      if (error) {
+        toast.error("Хатогӣ");
+        return;
+      }
       toast.success("Захира шуд");
     }
     qc.invalidateQueries({ queryKey: ["bookmark", id] });
