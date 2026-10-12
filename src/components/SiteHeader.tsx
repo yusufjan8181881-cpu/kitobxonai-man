@@ -10,6 +10,7 @@ const links = [
   { to: "/cluster", label: "Кластер" },
   { to: "/library", label: "Китобхона" },
   { to: "/ai", label: "Зеҳни сунъӣ" },
+  { to: "/about", label: "Дар бораи мо" },
 ] as const;
 
 export function SiteHeader() {
@@ -100,6 +101,7 @@ export function SiteFooter() {
             <li><Link to="/cluster">Кластерҳо ва тестҳо</Link></li>
             <li><Link to="/library">Китобхона</Link></li>
             <li><Link to="/ai">Ёрдамчии зеҳни сунъӣ</Link></li>
+            <li><Link to="/about">Дар бораи мо</Link></li>
           </ul>
         </div>
         <div className="text-sm opacity-80">
