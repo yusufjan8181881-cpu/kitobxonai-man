@@ -33,8 +33,14 @@ function AuthPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!/^\S+@\S+\.\S+$/.test(email)) return toast.error("Почтаи электронии дуруст ворид кунед");
-    if (password.length < 6) return toast.error("Парол бояд на камтар аз 6 аломат бошад");
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      toast.error("Почтаи электронии дуруст ворид кунед");
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Парол бояд на камтар аз 6 аломат бошад");
+      return;
+    }
     setBusy(true);
     if (mode === "in") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });

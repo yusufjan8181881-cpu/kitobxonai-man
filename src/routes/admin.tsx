@@ -54,7 +54,10 @@ function AdminPage() {
   async function remove(id: string) {
     if (!confirm("Ин саволро нест кунед?")) return;
     const { error } = await supabase.from("questions").delete().eq("id", id);
-    if (error) return toast.error("Нест карда нашуд");
+    if (error) {
+      toast.error("Нест карда нашуд");
+      return;
+    }
     toast.success("Нест шуд");
     qc.invalidateQueries({ queryKey: ["admin-questions"] });
   }
