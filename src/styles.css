@@ -174,3 +174,97 @@
 .prose-kitob ul { list-style: disc; }
 .prose-kitob ol { list-style: decimal; }
 .prose-kitob li { margin: 0.25rem 0; line-height: 1.7; }
+/* PREMIUM EDUCATION PLATFORM */
+:root {
+  --background: #070b18;
+  --surface: #101a2e;
+  --surface-hover: #172640;
+  --primary: #14b8a6;
+  --secondary: #38bdf8;
+  --text: #f8fafc;
+  --muted: #a7b4c9;
+  --border: rgba(148, 163, 184, 0.16);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+[role="button"] {
+  cursor: pointer;
+  transition: transform .25s ease,
+              box-shadow .25s ease,
+              background-color .25s ease;
+}
+
+button:hover,
+[role="button"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 184, 166, .18);
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+a {
+  transition: color .2s ease;
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+.card,
+[class*="card"] {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  transition: transform .3s ease,
+              border-color .3s ease,
+              box-shadow .3s ease;
+}
+
+.card:hover,
+[class*="card"]:hover {
+  border-color: rgba(20, 184, 166, .45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .2);
+}
+
+input,
+textarea,
+select {
+  border-radius: 10px;
+  transition: border-color .2s ease,
+              box-shadow .2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, .13);
+}
+
+::selection {
+  background: rgba(20, 184, 166, .3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
