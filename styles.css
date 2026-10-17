@@ -1,29 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  /* Light, professional theme tokens */
+  --background: 0 0% 100%;           /* white */
+  --foreground: 220 16% 12%;         /* dark navy / charcoal */
+  --card: 0 0% 100%;                 /* white cards */
+  --card-foreground: 220 16% 12%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --primary: 221 83% 53%;
+  --popover-foreground: 220 16% 12%;
+
+  /* Primary: clean blue for actions */
+  --primary: 215 85% 45%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 214 32% 93%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 214 32% 94%;
-  --muted-foreground: 215 16% 35%;
-  --accent: 199 89% 92%;
-  --accent-foreground: 222 47% 11%;
-  --destructive: 0 72% 51%;
+
+  --secondary: 210 16% 98%;
+  --secondary-foreground: 220 14% 22%;
+
+  --muted: 210 16% 98%;
+  --muted-foreground: 220 14% 44%;
+
+  /* Accent: subtle gold for highlights */
+  --accent: 45 90% 50%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 75% 45%;
   --destructive-foreground: 0 0% 100%;
-  --border: 214 25% 85%;
-  --input: 214 25% 85%;
-  --ring: 221 83% 53%;
-  --radius: 0.85rem;
-  --hero: 222 47% 18%;
-  --hero-foreground: 0 0% 100%;
-  --gold: 43 96% 56%;
+
+  --border: 214 16% 88%;
+  --input: 214 16% 96%;
+  --ring: 215 85% 65%;
+  --radius: 0.6rem;
+  --hero: 215 16% 96%;
+  --gold: 45 90% 50%;
 }
 
 * {
@@ -32,49 +40,166 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
 }
 
-button,
-a {
-  transition: all 0.2s ease;
-}
-
-a {
+/* Links */
+a, a:visited {
+  color: hsl(var(--primary));
   text-decoration: none;
 }
-
-button:hover {
-  filter: brightness(1.06);
+a:hover {
+  text-decoration: underline;
 }
 
-input,
-textarea,
-select {
-  color: hsl(var(--foreground));
-  background-color: white;
-}
-
+/* Text selection */
 ::selection {
   background: hsl(var(--primary));
-  color: white;
+  color: var(--primary-foreground);
 }
 
-.card,
-[class*="rounded-xl"][class*="border"] {
-  border-color: hsl(var(--border));
-}
-
-h1,
-h2,
-h3 {
-  line-height: 1.3;
+/* Headings */
+h1, h2, h3, h4, h5 {
+  line-height: 1.25;
   letter-spacing: -0.02em;
+  color: hsl(var(--foreground));
+  margin: 0 0 0.5rem 0;
 }
+
+p, li, label, input, textarea, select {
+  color: hsl(var(--foreground));
+}
+
+/* Buttons: modern, consistent */
+button, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: calc(var(--radius) * 1);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+/* Primary button */
+.btn-primary, button.primary, .primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 6px 18px hsl(var(--primary) / 0.10);
+}
+
+.btn-primary:hover, button.primary:hover, .primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px hsl(var(--primary) / 0.12);
+}
+
+.btn-primary:active, button.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px hsl(var(--primary) / 0.10);
+}
+
+/* Secondary / ghost */
+.btn-ghost, .btn-secondary {
+  background: transparent;
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--border));
+}
+
+/* Gold accent small button */
+.btn-accent {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* Forms */
+input, textarea, select {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: calc(var(--radius) * 0.9);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--input));
+  color: hsl(var(--foreground));
+  outline: none;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 6px hsl(var(--ring) / 0.12);
+  border-color: hsl(var(--primary));
+}
+
+/* Cards */
+.card {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  padding: 1rem;
+  border-radius: calc(var(--radius) * 1.1);
+  box-shadow: 0 6px 20px rgba(16,24,40,0.04);
+}
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Navbar and footer minimal polishing */
+.site-header, header, .navbar {
+  background: transparent;
+  color: hsl(var(--foreground));
+}
+
+.footer, footer, .site-footer {
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  border-top: 1px solid hsl(var(--border));
+  padding: 1.25rem 1rem;
+}
+
+/* Make sure any bright/neon colors are softened by overriding common utility classes */
+.text-accent, .accent, .badge-accent {
+  color: hsl(var(--accent));
+}
+
+/* Utility helpers */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Improved responsive spacing */
+@media (max-width: 640px) {
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; }
+  .card { padding: 0.85rem; }
+  button, .btn { padding: 0.5rem 0.75rem; }
+}
+
+/* Accessibility: ensure high contrast for disabled or muted elements */
+.muted, .text-muted {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Small tweaks to override previously hard-coded bright blues if present */
+/* These are intentionally specific so they only apply when needed */
+.btn[style*="background"], [style*="color: #0ff"], [style*="color: cyan"], [style*="color: #00ffff"] {
+  /* prefer theme colors over inline neon colors */
+  background: none !important;
+  color: inherit !important;
+}
+
+/* Preserve existing layouts and avoid removing classes or structure */
